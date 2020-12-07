@@ -41,18 +41,15 @@ class ConvexHull:
 
     def __scan(self, S: list, a: Vertex):
         '''Execute phase 3 of Graham Scan Algorithm. '''
-        prev_v = S[0]
-        curr_v = S[S.index(prev_v) + 1]
-        while(curr_v != S[-1]):
-            next_v = S[S.index(curr_v) + 1]
-            if RadialComparator(prev_v).comp(curr_v, next_v) == Orientation.LEFT:
-                prev_v = curr_v
-            else:
-                S.remove(curr_v)
-                prev_v = S[S.index(prev_v) - 1]
-            curr_v = S[S.index(prev_v) + 1]
-        del S[-1]
-        return S
+        H = S[:2]
+        for r in S[2:]:
+            p,q = H[-2:]
+            while RadialComparator(p).comp(q,r) != Orientation.CCW:
+                del H[-1] #Deletion of last element in python list is O(1)
+                p,q = H[-2:]
+            H.append(r)
+        return H
+
 
     def draw(self, hull):
         '''Draw the convex hull on a plot.
