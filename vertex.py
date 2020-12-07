@@ -7,7 +7,7 @@ class Vertex:
         return self.x == other.x and self.y == other.y
 
     def __str__(self):
-        return f'{self.x}, {self.y}'
+        return f'({self.x}, {self.y})'
 
     def __repr__(self):
         return str(self)
